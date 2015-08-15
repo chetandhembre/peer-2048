@@ -1,0 +1,23 @@
+{
+  "name": "peer-2048",
+  "version": "1.0.0",
+  "description": "lets play 2048 togethor ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gabrielecirulli/2048.git"
+  },
+  "author": "chetandhembre <chetandhembre@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gabrielecirulli/2048/issues"
+  },
+  "homepage": "https://github.com/gabrielecirulli/2048#readme",
+  "dependencies": {
+    "hapi": "^8.x.x"
+  }
+}

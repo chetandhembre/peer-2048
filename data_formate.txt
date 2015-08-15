@@ -1,0 +1,6 @@
+{"grid":{"size":4,"cells":[[null,null,null,null],[null,null,null,{"position":{"x":1,"y":3},"value":2}],[null,null,null,null],[null,null,{"position":{"x":3,"y":2},"value":2},null]]},"score":0,"over":false,"won":false,"keepPlaying":false}
+
+state:[[1, 3, 2],[3, 2, 2]]
+keys:[]
+
+[[[1, 3, 2],[3, 2, 2]],[],0,false,false,false]
