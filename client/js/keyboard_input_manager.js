@@ -31,6 +31,11 @@ KeyboardInputManager.prototype.emit = function (event, data) {
   }
 };
 
+KeyboardInputManager.prototype.removeListener = function () {
+  this.events = {}
+}
+
+
 KeyboardInputManager.prototype.listen = function () {
   var self = this;
 

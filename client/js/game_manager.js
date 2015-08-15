@@ -1,11 +1,13 @@
-function GameManager(size, InputManager, Actuator, StorageManager, RemoteManager) {
+function GameManager(size, id, InputManager, Actuator, StorageManager, RemoteManager) {
   this.size           = size; // Size of the grid
+  this.id = id
   this.inputManager   = new InputManager;
   this.storageManager = new StorageManager;
   this.actuator       = new Actuator;
-  this.remoteSenderManager = new RemoteManager(true)
+  this.remoteSenderManager = new RemoteManager(this.id, true)
   window.f = this.remoteSenderManager
   this.sendInterval = 1000
+
 
   this.startTiles     = 2;
   this.moves = []
@@ -38,6 +40,12 @@ GameManager.prototype.restart = function () {
   this.actuator.continueGame(); // Clear the game won/lost message
   this.setup();
 };
+
+
+GameManager.prototype.destory = function () {
+  this.inputManager.removeListener();
+  this.actuator.continueGame(); // Clear the game won/lost message
+}
 
 // Keep playing after winning (allows going over 2048)
 GameManager.prototype.keepPlaying = function () {
@@ -290,6 +298,8 @@ GameManager.prototype.tileMatchesAvailable = function () {
 GameManager.prototype.positionsEqual = function (first, second) {
   return first.x === second.x && first.y === second.y;
 };
+
+
 
 function gameStateSerializer (state) {
   /*{

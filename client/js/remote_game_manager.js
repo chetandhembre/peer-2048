@@ -1,11 +1,12 @@
 
-function RemoteGameManager(size, RemoteManager, Actuator, StorageManager) {
+function RemoteGameManager(size, id, RemoteManager, Actuator, StorageManager) {
   this.size           = size; // Size of the grid
   this.storageManager = new StorageManager;
   this.actuator       = new Actuator;
-  this.remoteManager  = new RemoteManager(false) 
+  this.remoteManager  = new RemoteManager(id, false) 
   this.storageManager.deleteRemoteGameState()
   window.f = this.remoteManager
+  this.id = id
   this.startTiles     = 2;
   this.sendInterval = 1000
   this.queue = []
@@ -77,6 +78,12 @@ RemoteGameManager.prototype.restart = function () {
   this.storageManager.clearGameState();
   this.actuator.continueGame(); // Clear the game won/lost message
   this.setup();
+};
+
+//stop all game
+RemoteGameManager.prototype.destory = function () {
+  this.remoteManager.removeListener();
+  this.actuator.continueGame(); // Clear the game won/lost message
 };
 
 // Keep playing after winning (allows going over 2048)

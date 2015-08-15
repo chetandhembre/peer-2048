@@ -1,6 +1,6 @@
-function RemoteManager(sender) {
+function RemoteManager(id, sender) {
 	this.events = {}
-  this.id = 'chetandhembre';
+  this.id = id;
   this.webrtc = new SimpleWebRTC({
     autoRequestMedia: false,
     type: 'data',
@@ -13,16 +13,15 @@ function RemoteManager(sender) {
     }
   });
   
-  this.id = 0
-  if (sender) {
-    this.webrtc.joinRoom('chetandhembre');
-  }
+  this.message_id = 0
+  this.webrtc.joinRoom(this.id);
+  this.onMessage()
 }
 
 RemoteManager.prototype.onMessage = function () {
   this.webrtc.on('channelMessage', function (n, channel, message) {
-    if (message.payload.id > this.id) {
-      this.id = message.payload.id
+    if (message.payload.message_id > this.message_id) {
+      this.message_id = message.payload.message_id
       this.emit('state', message.payload.message) 
     } 
   }.bind(this))
@@ -30,7 +29,7 @@ RemoteManager.prototype.onMessage = function () {
 
 
 RemoteManager.prototype.createRemoteConnection = function (id) {
-    this.webrtc.joinRoom('chetandhembre');
+    this.webrtc.joinRoom(id);
     this.onMessage()
 }
 
@@ -51,11 +50,15 @@ RemoteManager.prototype.emit = function (event, data) {
   }
 };
 
+RemoteManager.prototype.removeListener = function () {
+  this.events = {}
+}
+
 RemoteManager.prototype.send = function (message) {
-  this.id++
-  this.webrtc.sendDirectlyToAll('chetandhembre', 'state', {
+  this.message_id++
+  this.webrtc.sendDirectlyToAll(this.id, 'state', {
     message: message,
-    id : this.id
+    message_id : this.message_id
   })
 }
 

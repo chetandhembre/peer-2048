@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./server/server.js"
+    "build": "browserify ./client/browserify_support.js -o ./client/bundle.js",
+    "watch": "watchify ./client/browserify_support.js -o ./client/bundle.js",
+    "start": "node ./server/server.js",
+    "deploy": "npm run build && git push heroku master && heroku ps:scale web=1"
   },
   "repository": {
     "type": "git",
@@ -18,6 +21,13 @@
   },
   "homepage": "https://github.com/gabrielecirulli/2048#readme",
   "dependencies": {
-    "hapi": "^8.x.x"
+    "Set": "^0.4.1",
+    "hapi": "^8.x.x",
+    "hat": "0.0.3",
+    "xhr": "^2.0.3"
+  },
+  "devDependencies": {
+    "browserify": "^11.0.1",
+    "watchify": "^3.3.1"
   }
 }

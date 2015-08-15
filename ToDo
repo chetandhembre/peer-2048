@@ -5,6 +5,6 @@
 5. server game over http server(done)
 6. send game state (done)
 7. recieve game state(done)
-8. deploy on heroku
+8. deploy on heroku(done)
 9. register peer with server
 10. get peer from server

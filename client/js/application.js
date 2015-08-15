@@ -1,16 +1,55 @@
+
+function Two048(peerId) {
+	var self = this
+	self.peerId = peerId
+	this.local = new GameManager(4, self.peerId, KeyboardInputManager, HTMLActuator, LocalStorageManager, RemoteManager);
+	this.remote;
+
+	var peerDiv = document.querySelector('.peers')
+	peerDiv.addEventListener("click", function (e) {
+		self.remoteGame(e.target.id)
+	});
+}
+
+Two048.prototype.remoteGame = function (id) {
+	if (this.local) {
+		this.local.destory()
+		this.local = null	
+	}
+
+	if (this.remote) {
+		this.remote.destory()
+		this.remote = null	
+	}
+	
+	
+	this.remote = new RemoteGameManager(4, id, RemoteManager, HTMLActuator, RemoteStorageManager)
+}
+
+Two048.prototype.localGame = function () {
+	if (this.local) {
+		this.local.destory()
+		this.local = null	
+	}
+
+	if (this.remote) {
+		this.remote.destory()
+		this.remote = null	
+	}
+	
+	this.local = new GameManager(4, self.peerId, KeyboardInputManager, HTMLActuator, LocalStorageManager, RemoteManager);
+}
+
 // Wait till the browser is ready to render the game (avoids glitches)
-window.requestAnimationFrame(function () {
-  //new GameManager(4, KeyboardInputManager, HTMLActuator, LocalStorageManager, RemoteManager);
-  // new RemoteGameManager(4, RemoteManager, HTMLActuator, RemoteStorageManager)
-});
+
 
 
 function game() {
-	new GameManager(4, KeyboardInputManager, HTMLActuator, LocalStorageManager, RemoteManager);
+	
 }
 
 
 function remote() {
-	new RemoteGameManager(4, RemoteManager, HTMLActuator, RemoteStorageManager)
+	
 	window.f.createRemoteConnection()
 }
